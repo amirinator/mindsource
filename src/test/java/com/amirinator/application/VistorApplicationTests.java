@@ -67,12 +67,10 @@ class VistorApplicationTests {
 		try {
 			Timestamp startTime = new Timestamp(service.timeFormatter.parse("2019-01-01 04").getTime());
 			Timestamp endTime = new Timestamp(service.timeFormatter.parse("2019-01-03 14").getTime());
-			//count = service.getCountOfVisitsForTimeRange(startTime, endTime, visits);
 			assert (service.getCountOfVisitsForTimeRange(startTime, endTime, visits) == 9);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		//assert (count == 9);
 	}
 
 	/*
@@ -85,7 +83,7 @@ class VistorApplicationTests {
 			Timestamp startTime =
 					new Timestamp(service.timeFormatter.parse("2019-01-05 04").getTime());
 			Timestamp endTime = new Timestamp(service.timeFormatter.parse("2019-01-03 14").getTime());
-			Exception exception = assertThrows(RuntimeException.class, () ->
+			assertThrows(RuntimeException.class, () ->
 					service.getCountOfVisitsForTimeRange(startTime, endTime, visits)
 			);
 		} catch (Exception e) {

@@ -8,8 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EncryptionServiceTest {
 
@@ -58,9 +57,13 @@ public class EncryptionServiceTest {
 	@Test
 	@DisplayName("Verify the message is correctly decrypted")
 	public void testDecryptMessage() {
-		Message message = new Message("toioynnkpheleaigshareconhtomesnlewx", 5);
-		Message decryptedMessage = service.decrypt(message);
-		assertEquals("theresnoplacelikehomeonasnowynightx", decryptedMessage.getContent());
+		try {
+			Message message = new Message("toioynnkpheleaigshareconhtomesnlewx", 5);
+			Message decryptedMessage = service.decrypt(message);
+			assertEquals("theresnoplacelikehomeonasnowynightx", decryptedMessage.getContent());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/*
@@ -69,8 +72,30 @@ public class EncryptionServiceTest {
 	@Test
 	@DisplayName("Verify the message is correctly decrypted into the valid messasge")
 	public void testDecryptMessageAgain() {
-		Message message = new Message("ttyohhieneesiaabss", 3);
-		Message decryptedMessage = service.decrypt(message);
-		assertEquals("thisistheeasyoneab", decryptedMessage.getContent());
+		try {
+			Message message = new Message("ttyohhieneesiaabss", 3);
+			Message decryptedMessage = service.decrypt(message);
+			assertEquals("thisistheeasyoneab", decryptedMessage.getContent());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
+
+	/*
+	 * Verify the encrypted content is decrypted correctly
+	 */
+	@Test
+	@DisplayName("Verify the message column size verification correctly verifies the width requirement")
+	public void testMessageColumnWidth() {
+		try {
+			Message message = new Message("ttyohhieneesiaabss", -1);
+			assertThrows(RuntimeException.class, () ->
+					service.decrypt(message)
+			);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+
 }

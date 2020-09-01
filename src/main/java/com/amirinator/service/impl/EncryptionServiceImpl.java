@@ -18,6 +18,11 @@ public class EncryptionServiceImpl implements EncryptionService {
 		int ROWS = getRowSize(message);
 		int COLUMNS = message.getColumnWidth();
 
+		// verify the column size is greater than 1
+		if (COLUMNS < 1) {
+			throw new RuntimeException("You must specify a column size greater than 1");
+		}
+
 		Message decryptedMessage = new Message("", message.getColumnWidth());
 
 		char[][] multiArray = new char[ROWS][COLUMNS];
